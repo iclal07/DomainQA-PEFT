@@ -21,8 +21,8 @@ def train_model(model_name: str, dataset_name: str, output_dir: str, num_epochs:
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
 
-    # Veri kümesini hazırla
-    dataset = load_dataset(dataset_name, split="train")
+    # Veri kümesini Hugging Face'ten yükle
+    dataset = load_dataset("takala/financial_phrasebank", split="train")  # Veri seti adı güncellendi
     tokenized_datasets = prepare_data(dataset, tokenizer)
 
     # Eğitim parametrelerini ayarla
@@ -53,4 +53,4 @@ def train_model(model_name: str, dataset_name: str, output_dir: str, num_epochs:
     print("Model eğitimi tamamlandı ve kaydedildi.")
 
 if __name__ == "__main__":
-    train_model(model_name="meta-llama/LLaMA-2-7b", dataset_name="medqa", output_dir="./fine-tuned-llama")
+    train_model(model_name="meta-llama/Llama-2-7b-hf", dataset_name="takala/financial_phrasebank", output_dir="./models/fine-tuned-llama")
