@@ -37,4 +37,20 @@ def train_model(model_name: str, dataset_name: str, output_dir: str, num_epochs:
         save_total_limit=2,
     )
 
+    # Trainer'ı tanımla ve eğitimi başlat
+    trainer = Trainer(
+        model=model,
+        args=training_args,
+        train_dataset=tokenized_datasets["train"],
+        eval_dataset=tokenized_datasets["test"],
+    )
 
+    trainer.train()
+
+    # Modeli kaydet
+    save_model(model, output_dir)
+
+    print("Model eğitimi tamamlandı ve kaydedildi.")
+
+if __name__ == "__main__":
+    train_model(model_name="meta-llama/Llama-2-7b-hf", dataset_name="takala/financial_phrasebank", output_dir="./models/fine-tuned-llama")
